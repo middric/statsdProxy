@@ -22,7 +22,7 @@ Configuration options and their defaults
 ```js
 {
     // Enable logging to the console
-    "logging": true,
+    "logging": false,
     
     // Hostname to use for the proxy server
     "serverHost": "localhost",

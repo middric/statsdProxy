@@ -10,5 +10,9 @@
     "repository": {
         "type": "git",
         "url": "git://github.com/middric/statsdProxy.git"
+    },
+    "scripts": {
+        "start": "node server.js",
+        "test": "mocha"
     }
 }

@@ -12,7 +12,7 @@ var http = require('http'),
 nconf.argv().file('config.json').file('whitelist', 'whitelist.json');
 nconf.defaults({
     // Enable logging to the console
-    "logging": true,
+    "logging": false,
     
     // Hostname to use for the proxy server
     "serverHost": "localhost",
