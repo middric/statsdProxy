@@ -6,15 +6,25 @@ var http = require('http'),
 
 nconf.argv().file('config.json').file('whitelist', 'whitelist.json');
 nconf.defaults({
+    // Enable logging to the console
     "logging": true,
-    "imagePath": "./transparent.gif",
+    
+    // Hostname to use for the proxy server
     "serverHost": "localhost",
+    
+    // Port for the proxy server
     "serverPort": 3202,
+    
+    // StatsD hostname
     "statsDHost": "localhost",
+    
+    // StatsD port
     "statsDPort": 3200,
+    
+    // Whitelist of referral address to accept
     "whitelist": ['.*']
 });
-gif = fs.readFileSync(nconf.get('imagePath'));
+gif = fs.readFileSync('./transparent.gif');
 
 http.createServer(function (req, res) {
     var statsdProxy = new StatsdProxy(req, res, nconf.get());

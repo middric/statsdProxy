@@ -24,9 +24,6 @@ Configuration options and their defaults
     // Enable logging to the console
     "logging": true,
     
-    // Path to transparent.gif
-    "imagePath": "./transparent.gif",
-    
     // Hostname to use for the proxy server
     "serverHost": "localhost",
     
