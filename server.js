@@ -27,7 +27,7 @@ nconf.defaults({
 gif = fs.readFileSync('./transparent.gif');
 
 http.createServer(function (req, res) {
-    var statsdProxy = new StatsdProxy(req, res, nconf.get());
+    var statsdProxy = new StatsdProxy(req.url, req.headers['referer'], nconf.get());
     statsdProxy.log(req.url);
     if (statsdProxy.run()) {
         res.setHeader('Content-Type', 'image/gif');

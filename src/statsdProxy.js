@@ -1,11 +1,11 @@
 var url = require('url'),
     statsd = require('statsd-client');
 
-function StatsdProxy(req, res, options) {
-    this.req = req;
-    this.res = res; 
+function StatsdProxy(requestUrl, requestReferer, options) {
+    this.url = requestUrl;
+    this.referer = requestReferer;
     this.options = options;
-    this.querystring = url.parse(this.req.url, true).query;
+    this.querystring = url.parse(this.url, true).query;
 
     this.SDC = new statsd({
         host: this.options.statsDHost,
@@ -34,12 +34,12 @@ StatsdProxy.prototype.update = function () {
 }
 
 StatsdProxy.prototype.validate = function () {
-    if (!this.req.url.match(/^\/transparent\.gif/gi)) {
+    if (!this.url.match(/^\/transparent\.gif/gi)) {
         this.log("Invalid request");
         return false;
     }
     if (!this.checkReferer()) {
-        this.log("Invalid referer: " + this.req.headers['referer']);
+        this.log("Invalid referer: " + this.referer);
         return false;
     }
     if (
@@ -60,7 +60,7 @@ StatsdProxy.prototype.validate = function () {
 
 StatsdProxy.prototype.checkReferer = function () {
     var whitelist = this.options.whitelist,
-        referer = this.req.headers['referer'],
+        referer = this.referer,
         regex;
 
     if(!referer) {
