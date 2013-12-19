@@ -16,7 +16,7 @@ Bucket is the metric name you wish to update. Type can be one of c (counter), t 
 ## To Start
 ```bash
 $ npm install
-$ node server.js
+$ npm start
 ```
 
 ## Configuration
