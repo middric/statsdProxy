@@ -1,5 +1,8 @@
 var url = require('url'),
-    statsd = require('statsd-client');
+    statsd = require('statsd-client'),
+    InvalidRequestError = require('./errors/InvalidRequestError.js'),
+    InvalidRefererError = require('./errors/InvalidRefererError.js'),
+    InvalidQuerystringError = require('./errors/InvalidQuerystringError.js');
 
 function StatsdProxy(requestUrl, requestReferer, options) {
     this.url = requestUrl;
@@ -35,24 +38,20 @@ StatsdProxy.prototype.update = function () {
 
 StatsdProxy.prototype.validate = function () {
     if (!this.url.match(/^\/transparent\.gif/gi)) {
-        this.log("Invalid request");
-        return false;
+        throw new InvalidRequestError('URL invalid: ' + this.url);
     }
     if (!this.checkReferer()) {
-        this.log("Invalid referer: " + this.referer);
-        return false;
+        throw new InvalidRefererError('Referer invalid: ' + this.referer);
     }
     if (
         !this.querystring.b ||
         !this.querystring.t ||
         !this.querystring.v
     ) {
-        this.log("Invalid querysting: " . this.querystring);
-        return false;
+        throw new InvalidQuerystringError('Querystring invalid: ' + this.querystring);
     }
     if (['c','g','t'].indexOf(this.querystring.t) === -1) {
-        this.log("Invalid stat type: " . this.querystring.t);
-        return false;
+        throw new InvalidQuerystringError('Querystring type invalid: ' + this.querystring.t);
     }
 
     return true;
@@ -75,12 +74,6 @@ StatsdProxy.prototype.checkReferer = function () {
     }
 
     return false;
-}
-
-StatsdProxy.prototype.log = function (msg) {
-    if (this.options.logging) {
-        console.log(msg);
-    }
 }
 
 module.exports = StatsdProxy;
