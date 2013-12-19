@@ -2,6 +2,8 @@
 
 A Node.js application for proxying HTTP requests to statsD. Inspired by [js proxy by Swizec](https://github.com/Swizec/personal-dashboard/blob/master/collectors/js_proxy/server.js).
 
+[![Build Status](https://travis-ci.org/middric/statsdProxy.png)](https://travis-ci.org/middric/statsdProxy)
+
 ## How it works
 statsdProxy works by listening for HTTP requests and forwarding them on to statsD using [node-statsd-client](https://github.com/msiebuhr/node-statsd-client).
 
