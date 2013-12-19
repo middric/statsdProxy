@@ -1,7 +1,7 @@
 var http = require('http'),
     fs = require('fs'),
     nconf = require('nconf'),
-    StatsdProxy = require('./src/statsdProxy'),
+    StatsdProxy = require('./src/StatsdProxy'),
     log = function (msg) {
         if (nconf.get('logging')) {
             console.log(msg);
