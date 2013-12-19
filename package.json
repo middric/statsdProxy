@@ -4,6 +4,7 @@
     "description": "Proxy for calling statsd over HTTP",
     "dependencies": {
         "statsd-client": "*",
+        "mocha": "*",
         "nconf": "*"
     },
     "readmeFilename": "README.md",
