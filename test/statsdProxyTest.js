@@ -1,14 +1,14 @@
 var assert = require('assert'),
     url = require('url'),
-    StatsdProxy = require('../src/statsdProxy'),
+    StatsdProxy = require('../src/StatsdProxy'),
     InvalidRequestError = require('../src/errors/InvalidRequestError.js'),
     InvalidRefererError = require('../src/errors/InvalidRefererError.js'),
     InvalidQuerystringError = require('../src/errors/InvalidQuerystringError.js');
 
 describe('statsdProxy', function () {
     var options = {
-            statsDHost: 'localhost',
-            statsDPort: 1234,
+            statsdHost: 'localhost',
+            statsdPort: 1234,
             whitelist: ['.*'],
             logging: true
         },

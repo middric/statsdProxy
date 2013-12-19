@@ -21,10 +21,10 @@ nconf.defaults({
     "serverPort": 3202,
     
     // StatsD hostname
-    "statsDHost": "localhost",
+    "statsdHost": "localhost",
     
     // StatsD port
-    "statsDPort": 3200,
+    "statsdPort": 3200,
     
     // Whitelist of referral address to accept
     "whitelist": ['.*']
