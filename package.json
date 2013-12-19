@@ -1,19 +1,19 @@
 {
-    "name": "statsd-proxy",
-    "version": "1.0.0",
-    "description": "Proxy for calling statsd over HTTP",
-    "dependencies": {
-        "statsd-client": "*",
-        "mocha": "*",
-        "nconf": "*"
-    },
-    "readmeFilename": "README.md",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/middric/statsdProxy.git"
-    },
-    "scripts": {
-        "start": "node server.js",
-        "test": "mocha"
-    }
+  "name": "statsd-proxy",
+  "version": "1.1.0",
+  "description": "Proxy for calling statsd over HTTP",
+  "dependencies": {
+    "statsd-client": "*",
+    "mocha": "*",
+    "nconf": "*"
+  },
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/middric/statsdProxy.git"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "mocha"
+  }
 }
