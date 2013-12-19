@@ -1,3 +1,5 @@
+"use strict";
+
 var url = require('url'),
     statsd = require('statsd-client'),
     InvalidRequestError = require('./errors/InvalidRequestError.js'),
@@ -23,7 +25,7 @@ StatsdProxy.prototype.run = function () {
 
     this.update();
     return true;
-}
+};
 
 StatsdProxy.prototype.update = function () {
     if (this.querystring.t === 'c') {
@@ -34,7 +36,7 @@ StatsdProxy.prototype.update = function () {
         this.SDC.gauge(this.querystring.b, this.querystring.v);
     }
     this.SDC.increment('js_proxy.requests');
-}
+};
 
 StatsdProxy.prototype.validate = function () {
     if (!this.url.match(/^\/transparent\.gif/gi)) {
@@ -55,7 +57,7 @@ StatsdProxy.prototype.validate = function () {
     }
 
     return true;
-}
+};
 
 StatsdProxy.prototype.checkReferer = function () {
     var whitelist = this.options.whitelist,
@@ -74,6 +76,6 @@ StatsdProxy.prototype.checkReferer = function () {
     }
 
     return false;
-}
+};
 
 module.exports = StatsdProxy;

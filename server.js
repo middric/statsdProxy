@@ -1,3 +1,5 @@
+"use strict";
+
 var http = require('http'),
     fs = require('fs'),
     nconf = require('nconf'),
@@ -35,7 +37,7 @@ nconf.defaults({
 gif = fs.readFileSync('./transparent.gif');
 
 http.createServer(function (req, res) {
-    var statsdProxy = new StatsdProxy(req.url, req.headers['referer'], nconf.get());
+    var statsdProxy = new StatsdProxy(req.url, req.headers.referer, nconf.get());
     log(req.url);
     try {
         statsdProxy.run();
