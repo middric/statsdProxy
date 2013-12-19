@@ -1,0 +1,14 @@
+{
+    "name": "statsd-proxy",
+    "version": "1.0.0",
+    "description": "Proxy for calling statsd over HTTP",
+    "dependencies": {
+        "statsd-client": "*",
+        "nconf": "*"
+    },
+    "readmeFilename": "README.md",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/middric/statsdProxy.git"
+    }
+}
