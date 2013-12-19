@@ -40,7 +40,7 @@ StatsdProxy.prototype.validate = function () {
     if (!this.url.match(/^\/transparent\.gif/gi)) {
         throw new InvalidRequestError('URL invalid: ' + this.url);
     }
-    if (!this.checkReferer()) {
+    if (this.options.refererCheck && !this.checkReferer()) {
         throw new InvalidRefererError('Referer invalid: ' + this.referer);
     }
     if (

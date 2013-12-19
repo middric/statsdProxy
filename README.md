@@ -25,6 +25,9 @@ Configuration options and their defaults
 {
     // Enable logging to the console
     "logging": false,
+
+    // Check referer header against whitelist
+    "refererCheck": true,
     
     // Hostname to use for the proxy server
     "serverHost": "localhost",

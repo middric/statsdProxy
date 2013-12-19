@@ -13,6 +13,9 @@ nconf.argv().file('config.json').file('whitelist', 'whitelist.json');
 nconf.defaults({
     // Enable logging to the console
     "logging": false,
+
+    // Check referer header against whitelist
+    "refererCheck": true,
     
     // Hostname to use for the proxy server
     "serverHost": "localhost",
@@ -25,7 +28,7 @@ nconf.defaults({
     
     // StatsD port
     "statsdPort": 3200,
-    
+
     // Whitelist of referral address to accept
     "whitelist": ['.*']
 });

@@ -10,7 +10,8 @@ describe('statsdProxy', function () {
             statsdHost: 'localhost',
             statsdPort: 1234,
             whitelist: ['.*'],
-            logging: true
+            logging: true,
+            refererCheck: true
         },
         expected = {
             host: 'localhost',
@@ -25,7 +26,7 @@ describe('statsdProxy', function () {
     it('validates a correct request', function () {
         statsdProxy.url = '/transparent.gif?b=test&t=c&v=1';
         statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
-        valid = statsdProxy.validate();
+        var valid = statsdProxy.validate();
 
         assert.ok(valid);
     });
@@ -74,5 +75,15 @@ describe('statsdProxy', function () {
         }, function(err) {
             return (err.name === 'InvalidQuerystringError');
         });
+    });
+
+    it('can disable the referer check', function () {
+        statsdProxy.url ='/transparent.gif?b=test&t=c&v=1';
+        statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
+        statsdProxy.referer = null;
+        statsdProxy.options.refererCheck = false;
+
+        var valid = statsdProxy.validate();
+        assert.ok(valid);
     });
 })
