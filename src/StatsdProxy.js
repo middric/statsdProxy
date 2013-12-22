@@ -28,11 +28,11 @@ StatsdProxy.prototype.run = function () {
 };
 
 StatsdProxy.prototype.update = function () {
-    if (this.querystring.t === 'c') {
+    if (this.querystring.t === 'counter') {
         this.SDC.increment(this.querystring.b, this.querystring.v);
-    } else if (this.querystring.t === 't') {
+    } else if (this.querystring.t === 'timer') {
         this.SDC.timing(this.querystring.b, this.querystring.v);
-    } else if (this.querystring.t === 'g') {
+    } else if (this.querystring.t === 'gauge') {
         this.SDC.gauge(this.querystring.b, this.querystring.v);
     }
     this.SDC.increment('js_proxy.requests');
@@ -52,7 +52,7 @@ StatsdProxy.prototype.validate = function () {
     ) {
         throw new InvalidQuerystringError('Querystring invalid: ' + this.querystring);
     }
-    if (['c','g','t'].indexOf(this.querystring.t) === -1) {
+    if (['counter','gauge','timer'].indexOf(this.querystring.t) === -1) {
         throw new InvalidQuerystringError('Querystring type invalid: ' + this.querystring.t);
     }
 
