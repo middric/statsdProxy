@@ -48,7 +48,7 @@ StatsdProxy.prototype.validate = function () {
     if (
         !this.querystring.b ||
         !this.querystring.t ||
-        !this.querystring.v
+        !this.querystring.d
     ) {
         throw new InvalidQuerystringError('Querystring invalid: ' + this.querystring);
     }

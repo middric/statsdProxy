@@ -24,7 +24,7 @@ describe('statsdProxy', function () {
     });
 
     it('validates a correct request', function () {
-        statsdProxy.url = '/transparent.gif?b=test&t=counter&v=1';
+        statsdProxy.url = '/transparent.gif?b=test&t=counter&d=1';
         statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
         var valid = statsdProxy.validate();
 
@@ -43,7 +43,7 @@ describe('statsdProxy', function () {
     });
 
     it('throws on an invalid referer', function () {
-        statsdProxy.url ='/transparent.gif?b=test&t=counter&=1';
+        statsdProxy.url ='/transparent.gif?b=test&t=counter&d=1';
         statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
         statsdProxy.options.whitelist = ['test'];
 
@@ -67,7 +67,7 @@ describe('statsdProxy', function () {
     });
 
     it('throws on an invalid querystring on bad type', function () {
-        statsdProxy.url = '/transparent.gif?b=test&t=invalid&v=1';
+        statsdProxy.url = '/transparent.gif?b=test&t=invalid&d=1';
         statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
 
         assert.throws(function() {
@@ -78,7 +78,7 @@ describe('statsdProxy', function () {
     });
 
     it('can disable the referer check', function () {
-        statsdProxy.url ='/transparent.gif?b=test&t=counter&v=1';
+        statsdProxy.url ='/transparent.gif?b=test&t=counter&d=1';
         statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
         statsdProxy.referer = null;
         statsdProxy.options.refererCheck = false;
