@@ -11,7 +11,7 @@ To do this requests must be made to the proxy in the following format:
 
 `http://serverHost:serverPort/transparent.gif?b=<bucket>&t=<type>&d=<delta>`
 
-Bucket is the metric name you wish to update. Type can be one of `counter`, `timer`, or `gauge`. Finally value is the value you wish to send.
+Bucket is the metric name you wish to update. Type can be one of `counter`, `decrement`, `increment`, `gauge`, or `timer`. Finally value is the value you wish to send.
 
 ## To Start
 ```bash

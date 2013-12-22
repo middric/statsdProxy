@@ -42,6 +42,34 @@ describe('statsdProxy', function () {
         });
     });
 
+    it('can send all types', function () {
+        var valid = false;
+        statsdProxy.url ='/transparent.gif?b=test&t=counter&d=1';
+        statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
+        valid = statsdProxy.validate();
+        assert.ok(valid);
+
+        statsdProxy.url ='/transparent.gif?b=test&t=gauge&d=1';
+        statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
+        valid = statsdProxy.validate();
+        assert.ok(valid);
+
+        statsdProxy.url ='/transparent.gif?b=test&t=timer&d=1';
+        statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
+        valid = statsdProxy.validate();
+        assert.ok(valid);
+
+        statsdProxy.url ='/transparent.gif?b=test&t=increment&d=1';
+        statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
+        valid = statsdProxy.validate();
+        assert.ok(valid);
+
+        statsdProxy.url ='/transparent.gif?b=test&t=decrement&d=1';
+        statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
+        valid = statsdProxy.validate();
+        assert.ok(valid);
+    });
+
     it('throws on an invalid referer', function () {
         statsdProxy.url ='/transparent.gif?b=test&t=counter&d=1';
         statsdProxy.querystring = url.parse(statsdProxy.url, true).query;

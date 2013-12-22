@@ -28,12 +28,22 @@ StatsdProxy.prototype.run = function () {
 };
 
 StatsdProxy.prototype.update = function () {
-    if (this.querystring.t === 'counter') {
-        this.SDC.increment(this.querystring.b, this.querystring.v);
-    } else if (this.querystring.t === 'timer') {
-        this.SDC.timing(this.querystring.b, this.querystring.v);
-    } else if (this.querystring.t === 'gauge') {
-        this.SDC.gauge(this.querystring.b, this.querystring.v);
+    switch (this.querystring.t) {
+        case 'counter':
+            this.SDC.increment(this.querystring.b, this.querystring.d);
+            break;
+        case 'decrement':
+            this.SDC.decrement(this.querystring.b, this.querystring.d);
+            break;
+        case 'gauge':
+            this.SDC.gauge(this.querystring.b, this.querystring.d);
+            break;
+        case 'increment':
+            this.SDC.increment(this.querystring.b, this.querystring.d);
+            break;
+        case 'timer':
+            this.SDC.timing(this.querystring.b, this.querystring.d);
+            break;
     }
     this.SDC.increment('js_proxy.requests');
 };
@@ -52,7 +62,7 @@ StatsdProxy.prototype.validate = function () {
     ) {
         throw new InvalidQuerystringError('Querystring invalid: ' + this.querystring);
     }
-    if (['counter','gauge','timer'].indexOf(this.querystring.t) === -1) {
+    if (['counter','gauge','timer','increment','decrement'].indexOf(this.querystring.t) === -1) {
         throw new InvalidQuerystringError('Querystring type invalid: ' + this.querystring.t);
     }
 
