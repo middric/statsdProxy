@@ -47,7 +47,7 @@ StatsdProxy.prototype.update = function () {
             this.SDC.timing(this.querystring.b, this.querystring.d, this.querystring.s);
             break;
     }
-    this.SDC.increment('js_proxy.requests');
+    this.SDC.increment('statsd_proxy.requests');
 };
 
 StatsdProxy.prototype.validate = function () {
