@@ -15,16 +15,16 @@ describe('statsdProxy', function () {
         },
         expected = {
             host: 'localhost',
-            port: 1234,
-            prefix: ''
+            port: 1234
         }
         statsdProxy = new StatsdProxy('url', 'referer', options);
     it('should contain a SDC instance', function () {
-        assert.deepEqual(statsdProxy.SDC.options, expected);
+        assert.equal(statsdProxy.SDC.host, expected.host);
+        assert.equal(statsdProxy.SDC.port, expected.port);
     });
 
     it('validates a correct request', function () {
-        statsdProxy.url = '/transparent.gif?b=test&t=counter&d=1';
+        statsdProxy.url = '/transparent.gif?b=test&t=increment&d=1';
         statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
         var valid = statsdProxy.validate();
 
@@ -44,10 +44,6 @@ describe('statsdProxy', function () {
 
     it('can send all types', function () {
         var valid = false;
-        statsdProxy.url ='/transparent.gif?b=test&t=counter&d=1';
-        statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
-        valid = statsdProxy.validate();
-        assert.ok(valid);
 
         statsdProxy.url ='/transparent.gif?b=test&t=gauge&d=1';
         statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
@@ -71,7 +67,7 @@ describe('statsdProxy', function () {
     });
 
     it('throws on an invalid referer', function () {
-        statsdProxy.url ='/transparent.gif?b=test&t=counter&d=1';
+        statsdProxy.url ='/transparent.gif?b=test&t=increment&d=1';
         statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
         statsdProxy.options.whitelist = ['test'];
 
@@ -106,7 +102,7 @@ describe('statsdProxy', function () {
     });
 
     it('can disable the referer check', function () {
-        statsdProxy.url ='/transparent.gif?b=test&t=counter&d=1';
+        statsdProxy.url ='/transparent.gif?b=test&t=increment&d=1';
         statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
         statsdProxy.referer = null;
         statsdProxy.options.refererCheck = false;

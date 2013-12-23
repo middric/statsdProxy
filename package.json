@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "description": "Proxy for calling statsd over HTTP",
   "dependencies": {
-    "statsd-client": "*",
+    "node-statsd": "*",
     "mocha": "*",
     "nconf": "*"
   },

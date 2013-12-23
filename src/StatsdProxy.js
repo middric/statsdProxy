@@ -1,7 +1,7 @@
 "use strict";
 
 var url = require('url'),
-    statsd = require('statsd-client'),
+    statsd = require('node-statsd').StatsD,
     InvalidRequestError = require('./errors/InvalidRequestError.js'),
     InvalidRefererError = require('./errors/InvalidRefererError.js'),
     InvalidQuerystringError = require('./errors/InvalidQuerystringError.js');
@@ -29,9 +29,6 @@ StatsdProxy.prototype.run = function () {
 
 StatsdProxy.prototype.update = function () {
     switch (this.querystring.t) {
-        case 'counter':
-            this.SDC.increment(this.querystring.b, this.querystring.d);
-            break;
         case 'decrement':
             this.SDC.decrement(this.querystring.b, this.querystring.d);
             break;
@@ -62,7 +59,7 @@ StatsdProxy.prototype.validate = function () {
     ) {
         throw new InvalidQuerystringError('Querystring invalid: ' + this.querystring);
     }
-    if (['counter','gauge','timer','increment','decrement'].indexOf(this.querystring.t) === -1) {
+    if (['gauge','timer','increment','decrement'].indexOf(this.querystring.t) === -1) {
         throw new InvalidQuerystringError('Querystring type invalid: ' + this.querystring.t);
     }
 

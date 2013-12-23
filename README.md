@@ -5,13 +5,13 @@ A Node.js application for proxying HTTP requests to statsD. Inspired by [js prox
 [![Build Status](https://travis-ci.org/middric/statsdProxy.png)](https://travis-ci.org/middric/statsdProxy)
 
 ## How it works
-statsdProxy works by listening for HTTP requests and forwarding them on to statsD using [node-statsd-client](https://github.com/msiebuhr/node-statsd-client).
+statsdProxy works by listening for HTTP requests and forwarding them on to statsD using [node-statsd](https://github.com/sivy/node-statsd).
 
 To do this requests must be made to the proxy in the following format:
 
 `http://serverHost:serverPort/transparent.gif?b=<bucket>&t=<type>&d=<delta>`
 
-Bucket is the metric name you wish to update. Type can be one of `counter`, `decrement`, `increment`, `gauge`, or `timer`. Finally value is the value you wish to send.
+Bucket is the metric name you wish to update. Type can be one of `decrement`, `increment`, `gauge`, or `timer`. Finally value is the value you wish to send.
 
 ## To Start
 ```bash
