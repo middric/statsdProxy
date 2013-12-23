@@ -3,7 +3,8 @@ var assert = require('assert'),
     StatsdProxy = require('../src/StatsdProxy'),
     InvalidRequestError = require('../src/errors/InvalidRequestError.js'),
     InvalidRefererError = require('../src/errors/InvalidRefererError.js'),
-    InvalidQuerystringError = require('../src/errors/InvalidQuerystringError.js');
+    InvalidQuerystringError = require('../src/errors/InvalidQuerystringError.js'),
+    InvalidSampleRateError = require('../src/errors/InvalidSampleRateError.js');
 
 describe('statsdProxy', function () {
     var options = {
@@ -65,6 +66,28 @@ describe('statsdProxy', function () {
         valid = statsdProxy.validate();
         assert.ok(valid);
     });
+
+    it('can send sample rate', function () {
+        var valid = false;
+
+        statsdProxy.url = '/transparent.gif?b=test&t=increment&d=1&s=0.25';
+        statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
+        valid = statsdProxy.validate();
+        assert.ok(valid);
+    });
+
+    it('throws on an invalid sample rate', function () {
+        var valid = false;
+
+        statsdProxy.url = '/transparent.gif?b=test&t=increment&d=1&s=test';
+        statsdProxy.querystring = url.parse(statsdProxy.url, true).query;
+
+        assert.throws(function() {
+            statsdProxy.validate();
+        }, function(err) {
+            return (err.name === 'InvalidSampleRateError');
+        });
+    })
 
     it('throws on an invalid referer', function () {
         statsdProxy.url ='/transparent.gif?b=test&t=increment&d=1';

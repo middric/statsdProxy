@@ -9,9 +9,9 @@ statsdProxy works by listening for HTTP requests and forwarding them on to stats
 
 To do this requests must be made to the proxy in the following format:
 
-`http://serverHost:serverPort/transparent.gif?b=<bucket>&t=<type>&d=<delta>`
+`http://serverHost:serverPort/transparent.gif?b=<bucket>&t=<type>&d=<delta>&s=<sample rate>`
 
-Bucket is the metric name you wish to update. Type can be one of `decrement`, `increment`, `gauge`, or `timer`. Finally value is the value you wish to send.
+Bucket is the metric name you wish to update. Type can be one of `decrement`, `increment`, `gauge`, or `timer`.  Value is the value you wish to send. Finally sample rate is optional and represents the sampling rate - should be a float between 0 and 1.
 
 ## To Start
 ```bash

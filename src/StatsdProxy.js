@@ -4,7 +4,8 @@ var url = require('url'),
     statsd = require('node-statsd').StatsD,
     InvalidRequestError = require('./errors/InvalidRequestError.js'),
     InvalidRefererError = require('./errors/InvalidRefererError.js'),
-    InvalidQuerystringError = require('./errors/InvalidQuerystringError.js');
+    InvalidQuerystringError = require('./errors/InvalidQuerystringError.js'),
+    InvalidSampleRateError = require('../src/errors/InvalidSampleRateError.js');
 
 function StatsdProxy(requestUrl, requestReferer, options) {
     this.url = requestUrl;
@@ -28,18 +29,22 @@ StatsdProxy.prototype.run = function () {
 };
 
 StatsdProxy.prototype.update = function () {
+    if (!this.querystring.s) {
+        this.querystring.s = 1;
+    }
+
     switch (this.querystring.t) {
         case 'decrement':
-            this.SDC.decrement(this.querystring.b, this.querystring.d);
+            this.SDC.decrement(this.querystring.b, this.querystring.d, this.querystring.s);
             break;
         case 'gauge':
-            this.SDC.gauge(this.querystring.b, this.querystring.d);
+            this.SDC.gauge(this.querystring.b, this.querystring.d, this.querystring.s);
             break;
         case 'increment':
-            this.SDC.increment(this.querystring.b, this.querystring.d);
+            this.SDC.increment(this.querystring.b, this.querystring.d, this.querystring.s);
             break;
         case 'timer':
-            this.SDC.timing(this.querystring.b, this.querystring.d);
+            this.SDC.timing(this.querystring.b, this.querystring.d, this.querystring.s);
             break;
     }
     this.SDC.increment('js_proxy.requests');
@@ -61,6 +66,9 @@ StatsdProxy.prototype.validate = function () {
     }
     if (['gauge','timer','increment','decrement'].indexOf(this.querystring.t) === -1) {
         throw new InvalidQuerystringError('Querystring type invalid: ' + this.querystring.t);
+    }
+    if (this.querystring.s && !parseFloat(this.querystring.s)) {
+        throw new InvalidSampleRateError('Sample rate must be a float: ' + this.querystring.s);
     }
 
     return true;
