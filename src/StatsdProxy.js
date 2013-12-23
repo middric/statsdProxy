@@ -15,7 +15,9 @@ function StatsdProxy(requestUrl, requestReferer, options) {
 
     this.SDC = new statsd({
         host: this.options.statsdHost,
-        port: this.options.statsdPort
+        port: this.options.statsdPort,
+        prefix: this.options.prefix,
+        suffix: this.options.suffix
     });
 }
 

@@ -12,16 +12,22 @@ describe('statsdProxy', function () {
             statsdPort: 1234,
             whitelist: ['.*'],
             logging: true,
-            refererCheck: true
+            refererCheck: true,
+            prefix: 'prefix',
+            suffix: 'suffix'
         },
         expected = {
             host: 'localhost',
-            port: 1234
+            port: 1234,
+            prefix: 'prefix',
+            suffix: 'suffix'
         }
         statsdProxy = new StatsdProxy('url', 'referer', options);
     it('should contain a SDC instance', function () {
         assert.equal(statsdProxy.SDC.host, expected.host);
         assert.equal(statsdProxy.SDC.port, expected.port);
+        assert.equal(statsdProxy.SDC.prefix, expected.prefix);
+        assert.equal(statsdProxy.SDC.suffix, expected.suffix);
     });
 
     it('validates a correct request', function () {

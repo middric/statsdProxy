@@ -40,6 +40,12 @@ Configuration options and their defaults
     
     // StatsD port
     "statsdPort": 3200,
+
+    // Stat prefix (prefix.statName)
+    "prefix": "",
+
+    // Stat suffix (statName.suffix)
+    "suffix": "",
     
     // Whitelist of referral address to accept
     "whitelist": ['.*']
